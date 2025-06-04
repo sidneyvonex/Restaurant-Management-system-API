@@ -1,6 +1,7 @@
 # 🍽️ Restaurant Management API
 
 This is the Backend of a Restaurant Management system built with **Node.js**, **Express**, **PostgreSQL**, and **Drizzle ORM**. It manages restaurants, menus, orders, drivers, and users in a scalable, relational database structure.
+> 🗄️ **Database**: Uses [Neon](https://neon.tech) – a fully managed, serverless PostgreSQL database.
 
 ## Tech Stack
 - **Node.js**
@@ -14,13 +15,12 @@ This is the Backend of a Restaurant Management system built with **Node.js**, **
   src/
 ├── drizzle/
 │ ├── schema.ts # Drizzle ORM schema
-│ ├── migrate.ts
-│ ├── seed.ts 
+│ ├── seed.ts #adding Initial Data
 │ └── db.ts # DB connection logic
 ├── middleware/
-│ ├── logger.ts
-│ ├── limiter.ts
-│ ├── bearAuth.ts
+│ ├── logger.ts #logging the requests
+│ ├── limiter.ts #limits the n.o of requests per minute
+│ ├── bearAuth.ts #
 └── server.ts
 ```
 ## 🔰 How to Initialize the Project 
