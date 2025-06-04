@@ -2,14 +2,14 @@
 
 This is the Backend of a Restaurant Management system built with **Node.js**, **Express**, **PostgreSQL**, and **Drizzle ORM**. It manages restaurants, menus, orders, drivers, and users in a scalable, relational database structure.
 
-##Tech Stack
+## Tech Stack
 - **Node.js**
 - **Express.js**
 - **PostgreSQL**
 - **Drizzle ORM**
 - **TypeScript**
 
-##📂 Project Structure
+## 📂 Project Structure
 ```
   src/
 ├── drizzle/
@@ -23,43 +23,56 @@ This is the Backend of a Restaurant Management system built with **Node.js**, **
 │ ├── bearAuth.ts
 └── server.ts
 ```
-  
-## **Features**
+## 🔰 How to Initialize the Project 
 
-### Entities
-
-- **State & City**
-  - States and cities with `stateCode`, relationships to addresses and restaurants.
-
-- **User**
-  - Handles registration, email & phone verification, and roles (driver, owner).
-
-- **Restaurant**
-  - Owned by users, located in cities, has a full menu.
-
-- **Menu Item & Category**
-  - Items have ingredients, price, and active state.
-  - Organized by category.
-
-- **Order**
-  - Linked to users, restaurants, drivers, delivery addresses.
-  - Tracks price, discount, final cost, and timestamps.
-
-- **Driver**
-  - Users can be assigned as drivers with vehicle details and delivery status.
-
-- **Comments & Ratings**
-  - Users can leave complaints or praise on orders.
-
-- **Order Status**
-  - Tracks the lifecycle of an order via a status catalog.
-
-### Time Management
-
-Every table that requires timestamps uses:
-```ts
-createdAt: timestamp('createdAt').defaultNow().notNull(),
-updatedAt: timestamp('updatedAt').defaultNow().notNull().$onUpdate(() => new Date()),
-
+### 1. Initialize the project with pnpm
+```bash
+pnpm init
+```
+### 2.Install depedencies
+```
+pnpm add bcrypt dotenv drizzle-kit drizzle-orm express jsonwebtoken nodemailer pg rate-limiter-flexible zod
+```
+### 3.Install dev dependencies
+```
+pnpm add -D @types/bcrypt @types/express @types/jsonwebtoken @types/node @types/nodemailer @types/pg tsx typescript
+```
+### 4.Initialize TypeScript config
+```
+pnpm tsc --init
+```
+### 5.Replace the generated tsconfig.json content with:
+```
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+### 6. Create your project files and folders as per the project structure:
+```
+src/
+├── drizzle/
+│   ├── schema.ts
+│   ├── migrate.ts
+│   ├── seed.ts
+│   └── db.ts
+├── middleware/
+│   ├── logger.ts
+│   ├── limiter.ts
+│   └── bearAuth.ts
+└── server.ts
+```
+### 7. Use Postman (or any API client) to test your API endpoints during development.
 
 
