@@ -9,7 +9,7 @@ This is the Backend of a Restaurant Management system built with **Node.js**, **
 - **Drizzle ORM**
 - **TypeScript**
 
-  ##📂 Project Structure
+```##📂 Project Structure
   src/
 ├── drizzle/
 │ ├── schema.ts # Drizzle ORM schema
@@ -21,6 +21,7 @@ This is the Backend of a Restaurant Management system built with **Node.js**, **
 │ ├── limiter.ts
 │ ├── bearAuth.ts
 └── server.ts
+```
   
 ## **Features**
 
