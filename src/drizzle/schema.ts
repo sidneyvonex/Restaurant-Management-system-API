@@ -65,6 +65,7 @@ export const restaurantOwnerTable = pgTable('restaurantOwnerTable',{
     restaurantId: integer('restaurantId').notNull().references(()=> restaurantTable.restaurantId, {onDelete: 'cascade'}),
     ownerId: integer('ownerId').notNull().references(()=> userTable.userId, {onDelete: 'cascade'}),
 });
+
 //8.DRIVER TABLE
 export const driverTable = pgTable('driverTable',{
     driverId: serial('driverId').primaryKey(),
@@ -77,6 +78,7 @@ export const driverTable = pgTable('driverTable',{
     createdAt: timestamp('createdAt').defaultNow().notNull(),
     updatedAt: timestamp('updatedAt').defaultNow().notNull().$onUpdate(() => new Date()),
 });
+
 //9.ADDRESS TABLE
 export const addressTable = pgTable('addressTable',{
     addressId:serial('addressId').primaryKey(),
@@ -91,6 +93,7 @@ export const addressTable = pgTable('addressTable',{
 
 
 });
+
 //10.ORDERS TABLE
 export const ordersTable = pgTable('ordersTable',{
     ordersId:serial('ordersId').primaryKey(),

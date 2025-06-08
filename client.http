@@ -1,0 +1,293 @@
+
+
+//DEFAULT ROUTE REQUEST
+###
+GET  http://localhost:3000
+
+
+//GET ALL STATES
+###
+GET  http://localhost:3000/api/states
+
+//GET STATE BY ID
+###
+GET http://localhost:3000/api/states/1
+
+//POST STATES
+###
+POST http://localhost:3000/api/states
+Content-Type: application/json
+
+{
+    "stateName" : "New State 1",
+    "stateCode" : "NS"
+}
+
+//UPDATE STATE
+###
+PUT http://localhost:3000/api/states/1
+Content-Type: application/json
+
+{
+     "stateName" : "Updated State 1",
+     "stateCode" : "US"
+}
+//DELETE STATES
+###
+DELETE http://localhost:3000/api/states/1
+
+//GET ALL CITIES
+###
+GET http://localhost:3000/api/city
+
+//GET CITY BY ID
+###
+GET http://localhost:3000/api/city/1
+
+//ADD A CITY 
+###
+POST http://localhost:3000/api/city
+Content-Type: application/json
+
+{
+    "cityName" : "New City",
+    "stateId" : 5
+}
+
+//UPDATE A CITY 
+###
+PUT http://localhost:3000/api/city/2
+Content-Type: application/json
+
+{
+    "cityName" : "New City",
+    "stateId" : 5
+}
+//DELETE CITY 
+###
+DELETE http://localhost:3000/api/city/1
+
+//GET ALL RESTAURANTS 
+###
+GET http://localhost:3000/api/restaurants
+
+//GET RESTAURANT BY ID 
+###
+GET http://localhost:3000/api/restaurants/1
+
+//CREATE NEW RESTAURANT
+###
+POST http://localhost:5000/api/restaurants/1
+Content-Type: application/json
+
+{
+    "restaurantName": "New Restaurant",
+    "streetAddress": "123 Main St",
+    "zipCode": "12345",
+    "cityId": 1
+}
+
+//UPDATE A RESTAURANT
+###
+PUT http://localhost:5000/api/restaurants/2
+Content-Type: application/json
+
+{
+    "restaurantName": "Updated Restaurant",
+    "streetAddress": "456 Elm St",
+    "zipCode": "67890",
+    "cityId": 1
+}
+ //DELETE A RESTAURANT
+###
+DELETE http://localhost:5000/api/restaurants/5
+
+//GET ALL MENU ITEMS
+###
+GET http://localhost:3000/api/menuitem
+-------------------------------------------------------------------------------------
+
+///GET A MENU ITEM BY ID
+###
+GET http://localhost:3000/api/menuitem/2
+
+//CREATE A NEW MENU ITEM
+###
+POST http://localhost:3000/api/menuitem
+Content-Type: application/json
+
+{
+    "menuName": "Yourghut",
+    "restaurantId" : 2,
+    "categoryId" : 2,
+    "description" : "Vanilla Yorghut",
+    "ingredients" : "Milk, vanilla",
+    "price" : "4.99",
+    "active" : true
+}
+
+//UPDATE A MENU ITEM
+###
+PUT http://localhost:3000/api/menuitem
+Content-Type: application/json
+
+{
+    "menuItem": "",
+    "restaurantId" : "",
+    "categoryId" : "",
+    "description" : "",
+    "ingredients" : "",
+    "price" : "",
+    "active" : true
+}
+
+//DELETE A MENU ITEM
+###
+DELETE http://localhost:3000/api/menuitem/8
+
+-------------------------------------------------------------------
+//GET ALL RESTAURANT OWNERS
+###
+GET http://localhost:3000/api/restaurantowner/
+
+//GET RESTAURANT OWNER BY ID 
+###
+GET http://localhost:3000/api/restaurantowner/1
+
+//CREATE A NEW RESTAURANT OWNER
+###
+POST http://localhost:3000/api/restaurantowner
+Content-Type: application/json
+
+{
+    "restaurantId" : 2,
+    "ownerId" : 2
+}
+//UPDATE RESTAURANT OWNER
+###
+PUT http://localhost:3000/api/restaurantowner/4
+Content-Type: application/json
+
+{
+    "restaurantId" : 2,
+    "ownerId" : 2
+}
+
+//DELETE A RESTAURANT OWNER
+###
+DELETE http://localhost:3000/api/restaurantowner/3
+
+-------------------------------------------------------------------------------------------------------
+//GET ALL CATEGORIES
+###
+GET http://localhost:3000/api/category
+
+--------------------------------------------------------------------------------------------------------------
+//GET ALL ORDERS
+###
+GET http://localhost:3000/api/orders
+
+//GET ORDER BY ID
+###
+GET http://localhost:3000/api/orders/2
+
+//CREATE ORDER
+###
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+    "restaurantId": "tastyBites",
+    "estimatedDeliveryTime": "",
+    "deliveryAddressId": "addr1",
+    "userId": "alice",
+    "driverId": "driver1",
+    "price": "9.99",
+    "finalPrice": "9.99"
+
+}
+//UPDATE ORDER
+###
+PUT http://localhost:3000/api/orders/2
+Content-Type: application/json
+
+{
+    "restaurantId": 1,
+    "estimatedDelivery" : "",
+    "deliveryAddressId" : 2 ,
+    "userId" : 1,
+    "driverId" : 1,
+    "price" : "0.00",
+    "discount" : "0.00",
+    "finalPrice" : "0.00",
+    "comment": ""
+
+}
+//DELETE ORDER
+###
+DELETE http://localhost:3000/api/orders/2
+---------------------------------------------------------------------------------------------------------------
+
+//GET ALL ORDER STATUS
+###
+GET http://localhost:3000/api/orderstatus/2
+----------------------------------------------------------------
+
+//GET ALL ORDER-MENU-ITEMS
+###
+GET http://localhost:3000/api/ordermenuitem
+-------------------------------------------------------------------------------
+
+//Users
+###
+GET http://localhost:3000/api/users
+
+//Create a New User
+###
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "userName" : "sidney",
+    "contactPhone" : "0798696008",
+    "phoneVerified" : true,
+    "email" : "sidneyvonex@gmail.com",
+    "emailVerified"  : true,
+    "confirmationCode" : "0000",
+    "password" : "sidney"
+}
+//Update a User
+###
+PUT http://localhost:3000/api/users/3
+Content-Type: application/json
+
+{
+    "userName" : "sidney",
+    "contactPhone" : "0798696008",
+    "phoneVerified" : true,
+    "email" : "sidneyvonex@gmail.com",
+    "emailVerified"  : true,
+    "confirmationCode" : "0000",
+    "password" : "sidney"
+}
+
+///DELETE A USER
+###
+DELETE http://localhost:3000/api/users/5
+
+-----------------------------------------------------------------------------
+
+//GET ALL STATUS LOGS
+###
+GET http://localhost:3000/api/statuscatalog
+
+
+//GET STATUS CATALOG BY ID 
+###
+GET http://localhost:3000/api/statuscatalog/2
+----------------------------------------------------------------------------------------
+
+//GET ALL ADDRESSES
+###
+GET http://localhost:3000/api/address
+-------------------------------------------------------------------

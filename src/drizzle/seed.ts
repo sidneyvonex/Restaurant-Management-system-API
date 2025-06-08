@@ -117,6 +117,7 @@ async function seed() {
     price: "9.99",
     finalPrice: "9.99"
   }).returning();
+  
   const [order2] = await db.insert(ordersTable).values({
     restaurantId: pizzaPlace.restaurantId,
     estimatedDeliveryTime: new Date(),
