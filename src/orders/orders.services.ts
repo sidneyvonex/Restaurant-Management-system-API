@@ -20,7 +20,18 @@ export const getExistingOrderById = async(existingOrderId: number):Promise<TOrde
  
 // Create a New Order
 export const createNewOrder = async(order:TOrderInsert):Promise<string> => {
-       await db.insert(ordersTable).values(order).returning();
+       await db.insert(ordersTable).values({
+        restaurantId:order.restaurantId,
+        estimatedDeliveryTime:order.estimatedDeliveryTime,
+        actualDeliveryTime:order.actualDeliveryTime,
+        deliveryAddressId:order.deliveryAddressId,
+        userId:order.userId,
+        driverId:order.driverId,
+        price: order.price?.toString(),       // <-- make sure it's string
+        discount: order.discount?.toString() || "0.00", // <-- default fallback
+        finalPrice: order.finalPrice.toString(), // <-- string
+    comment: order.comment,
+       }).returning();
         return "Order Created Successfully 😎"
 }
  

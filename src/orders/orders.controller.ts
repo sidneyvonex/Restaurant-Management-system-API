@@ -3,7 +3,7 @@ import { getExistingOrders,getExistingOrderById,createNewOrder,updateExistingOrd
  
 //Business logic for Address Related operations
  
- 
+ //Get all Orders
 export const getOrders = async (req: Request, res: Response) => {
     try {
         const allOrders = await getExistingOrders();
@@ -16,7 +16,7 @@ export const getOrders = async (req: Request, res: Response) => {
         res.status(500).json({ error:error.message || "Failed to fetch orders " });
     }
 }
- 
+ ///Get Order by Id
 export const getOrderById = async (req: Request, res: Response) => {
     const selectedOrderId = parseInt(req.params.id);
     if (isNaN(selectedOrderId)) {
@@ -34,15 +34,32 @@ export const getOrderById = async (req: Request, res: Response) => {
         res.status(500).json({ error:error.message || "Failed to find Order" });
     }
 }
- 
+
+//Create Order 
 export const createOrders = async (req: Request, res: Response) => {
     const { restaurantId,estimatedDeliveryTime,actualDeliveryTime,deliveryAddressId,userId,driverId,price,discount,finalPrice,comment} = req.body;
-    if (!restaurantId||!estimatedDeliveryTime||!deliveryAddressId||!userId||!driverId||!discount||!finalPrice) {
+    const estimatedDelivery = new Date(estimatedDeliveryTime);
+    const actualDelivery = actualDeliveryTime ? new Date(actualDeliveryTime) : null;
+
+
+    if (!restaurantId||!estimatedDeliveryTime||!deliveryAddressId||!userId||!driverId||!finalPrice) {
         res.status(400).json({ error: "All fields are required" });
         return; // Prevent further execution
     }
+    
     try {
-        const createdOrder = await createNewOrder({ restaurantId,estimatedDeliveryTime,actualDeliveryTime,deliveryAddressId,userId,driverId,price,discount,finalPrice,comment });
+        const createdOrder = await createNewOrder({
+            restaurantId,
+            estimatedDeliveryTime:estimatedDelivery,
+            actualDeliveryTime:actualDelivery,
+            deliveryAddressId,
+            userId,
+            driverId,
+            price:price ? price.toString() : null,
+            discount:discount ? discount.toString() : "0.00",
+            finalPrice: finalPrice.toString(),
+            comment
+         });
         if (createdOrder == null) {
             res.status(500).json({ message: "Failed to create Order" });
         } else {
@@ -60,12 +77,15 @@ export const updateOrder = async (req: Request, res: Response) => {
         return; // Prevent further execution
     }
     const { restaurantId,estimatedDeliveryTime,actualDeliveryTime,deliveryAddressId,userId,driverId,price,discount,finalPrice,comment} = req.body;
+    const estimatedDelivery = new Date(estimatedDeliveryTime);
+    const actualDelivery = actualDeliveryTime ? new Date(actualDeliveryTime) : null;
+
     if (!restaurantId||!estimatedDeliveryTime||!deliveryAddressId||!userId||!driverId||!discount||!finalPrice) {
         res.status(400).json({ error: "All fields are required" });
         return; // Prevent further execution
     }
     try {
-        const updatedOrder = await updateExistingOrder(selectedOrderId, {restaurantId,estimatedDeliveryTime,actualDeliveryTime,deliveryAddressId,userId,driverId,price,discount,finalPrice,comment});
+        const updatedOrder = await updateExistingOrder(selectedOrderId, {restaurantId,estimatedDeliveryTime:estimatedDelivery,actualDeliveryTime:actualDelivery,deliveryAddressId,userId,driverId,price,discount,finalPrice,comment});
         if (updatedOrder == null) {
             res.status(404).json({ message: "Order not found or failed to update" });
         } else {
