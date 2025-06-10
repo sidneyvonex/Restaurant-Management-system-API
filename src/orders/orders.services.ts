@@ -6,10 +6,50 @@ import { TOrderSelect,TOrderInsert,ordersTable } from "../drizzle/schema";
 //CRUD Operations for Orders entity
  
  
-//Get all Addresses
-export const getExistingOrders = async():Promise<TOrderSelect[] | null> => {
-     return await  db.query.ordersTable.findMany({});
-}
+//Get all Orders
+export const getExistingOrders = async (): Promise<TOrderSelect[] | null> => {
+  return await db.query.ordersTable.findMany({
+    with: {
+      user: {
+        with: {
+          addresses: {
+            with: {
+              city: {
+                with: {
+                  state: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      driver: {
+        columns: {
+          carMake: true,
+          carModel: true,
+        },
+        with:{
+          user:{
+            columns:{userName:true}
+          }
+        }
+      },
+      restaurant:{
+        columns:{
+          restaurantName:true, streetAddress:true
+        },
+        with:{
+          city:{
+            columns:{
+              cityName:true
+            }
+          }
+        }
+      }
+    },
+  });
+};
+
  
 //Get order by ID
 export const getExistingOrderById = async(existingOrderId: number):Promise<TOrderSelect | undefined>=> {
