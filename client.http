@@ -122,7 +122,7 @@ Content-Type: application/json
 
 {
     "menuName": "Yourghut",
-    "restaurantId" : 2,
+    "restaurantId" : 3,
     "categoryId" : 2,
     "description" : "Vanilla Yorghut",
     "ingredients" : "Milk, vanilla",
@@ -200,7 +200,7 @@ PUT http://localhost:3000/api/category/3
 Content-Type: application/json
 
 {
-    "categoryName" : "Snackette"
+    "categoryName" : "Snack1"
 }
 //DELETE CATEGORY
 ###
@@ -381,3 +381,20 @@ GET http://localhost:3000/api/address
 //GET ALL DRIVERS
 ###
 GET http://localhost:3000/api/driver
+
+//GET ADDRESS
+###
+GET http://localhost:3000/api/address
+
+//GET ALL RESTAURANT OWNERS
+###
+GET http://localhost:3000/api/restaurantowner
+
+###
+POST http://localhost:3000/api/restaurantowner
+Content-Type: application/json
+
+{
+    "restaurantId" : 1,
+    "ownerId": 2
+}

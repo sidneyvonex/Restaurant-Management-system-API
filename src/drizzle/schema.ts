@@ -152,27 +152,35 @@ export const orderMenuItemTable = pgTable('orderMenuItemTable',{
 ///RELATIONS 
 
 
-// 1. cityTable has many restaurantTable and addressTable
-export const cityTableRelations = relations(cityTable, ({ many }) => ({
+// 1. cityTable Relations
+export const cityTableRelations = relations(cityTable, ({ one, many }) => ({
+    state: one(stateTable, {
+        fields:[cityTable.stateId],
+        references: [stateTable.stateId]
+    }),
     restaurants: many(restaurantTable),
     addresses: many(addressTable),
 }));
 
 
-// 2. stateTable has many cityTable
+// 2. stateTable Relations
 export const stateTableRelations = relations(stateTable, ({ many }) => ({
     cities: many(cityTable),
 }));
 
-// 3. restaurantTable has many menuItemTable, restaurantOwnerTable, and ordersTable
-export const restaurantTableRelations = relations(restaurantTable, ({ many }) => ({
-    menuItems: many(menuItemTable),
-    owners: many(restaurantOwnerTable),
-    orders: many(ordersTable),
+// 3. restaurantTable Relations
+export const restaurantTableRelations = relations(restaurantTable, ({ one, many }) => ({
+  city: one(cityTable, {
+    fields: [restaurantTable.cityId],
+    references: [cityTable.cityId],
+  }),
+  menuItems: many(menuItemTable),
+  orders: many(ordersTable),
+  owners: many(restaurantOwnerTable),
 }));
 
-// 4. menuItemTable belongs to restaurantTable and categoryTable
-export const menuItemTableRelations = relations(menuItemTable, ({ one }) => ({
+// 4. menuItemTable Relations
+export const menuItemTableRelations = relations(menuItemTable, ({ one, many }) => ({
     restaurant: one(restaurantTable, {
         fields: [menuItemTable.restaurantId],
         references: [restaurantTable.restaurantId],
@@ -181,23 +189,24 @@ export const menuItemTableRelations = relations(menuItemTable, ({ one }) => ({
         fields: [menuItemTable.categoryId],
         references: [categoryTable.categoryId],
     }),
+    orderMenuItemTable:many(orderMenuItemTable),
 }));
 
-// 5. categoryTable has many menuItemTable
+// 5. categoryTable Relations
 export const categoryTableRelations = relations(categoryTable, ({ many }) => ({
     menuItems: many(menuItemTable),
 }));
 
-// 6. userTable has many restaurantOwnerTable, addressTable, ordersTable, commentTable, and driverTable
+// 6. userTable Relations
 export const userTableRelations = relations(userTable, ({ many }) => ({
-    restaurantOwnerships: many(restaurantOwnerTable),
+    restaurantOwner: many(restaurantOwnerTable),
     addresses: many(addressTable),
     orders: many(ordersTable),
     comments: many(commentTable),
     drivers: many(driverTable),
 }));
 
-// 7. restaurantOwnerTable belongs to restaurantTable and userTable
+// 7. restaurantOwnerTable Relations
 export const restaurantOwnerTableRelations = relations(restaurantOwnerTable, ({ one }) => ({
     restaurant: one(restaurantTable, {
         fields: [restaurantOwnerTable.restaurantId],
@@ -209,7 +218,7 @@ export const restaurantOwnerTableRelations = relations(restaurantOwnerTable, ({ 
     }),
 }));
 
-// 8. driverTable belongs to userTable and has many ordersTable
+// 8. driverTable Relations 
 export const driverTableRelations = relations(driverTable, ({ one, many }) => ({
     user: one(userTable, {
         fields: [driverTable.userId],
@@ -218,7 +227,7 @@ export const driverTableRelations = relations(driverTable, ({ one, many }) => ({
     orders: many(ordersTable),
 }));
 
-// 9. addressTable belongs to userTable and cityTable
+// 9. addressTable Relations
 export const addressTableRelations = relations(addressTable, ({ one }) => ({
     user: one(userTable, {
         fields: [addressTable.userId],
@@ -230,7 +239,7 @@ export const addressTableRelations = relations(addressTable, ({ one }) => ({
     }),
 }));
 
-// 10. ordersTable belongs to userTable, driverTable, restaurantTable, and has many orderMenuItemTable, orderStatusTable, commentTable
+// 10. ordersTable Relations
 export const ordersTableRelations = relations(ordersTable, ({ one, many }) => ({
     user: one(userTable, {
         fields: [ordersTable.userId],
@@ -240,6 +249,10 @@ export const ordersTableRelations = relations(ordersTable, ({ one, many }) => ({
         fields: [ordersTable.driverId],
         references: [driverTable.driverId],
     }),
+    deliveryAddress: one(addressTable, {
+        fields: [ordersTable.deliveryAddressId],
+        references: [addressTable.addressId],
+  }),
     restaurant: one(restaurantTable, {
         fields: [ordersTable.restaurantId],
         references: [restaurantTable.restaurantId],
@@ -249,7 +262,7 @@ export const ordersTableRelations = relations(ordersTable, ({ one, many }) => ({
     comments: many(commentTable),
 }));
 
-// 11. orderStatusTable belongs to ordersTable and statusCatalogTable
+// 11. orderStatusTable Relations
 export const orderStatusTableRelations = relations(orderStatusTable, ({ one }) => ({
     order: one(ordersTable, {
         fields: [orderStatusTable.orderId],
@@ -261,12 +274,12 @@ export const orderStatusTableRelations = relations(orderStatusTable, ({ one }) =
     }),
 }));
 
-// 12. statusCatalogTable has many orderStatusTable
+// 12. statusCatalogTable Relations
 export const statusCatalogTableRelations = relations(statusCatalogTable, ({ many }) => ({
     orderStatuses: many(orderStatusTable),
 }));
 
-// 13. commentTable belongs to ordersTable and userTable
+// 13. commentTable Relations
 export const commentTableRelations = relations(commentTable, ({ one }) => ({
     order: one(ordersTable, {
         fields: [commentTable.orderId],
@@ -278,7 +291,7 @@ export const commentTableRelations = relations(commentTable, ({ one }) => ({
     }),
 }));
 
-// 14. orderMenuItemTable belongs to ordersTable and menuItemTable
+// 14. orderMenuItemTable Relations
 export const orderMenuItemTableRelations = relations(orderMenuItemTable, ({ one }) => ({
     order: one(ordersTable, {
         fields: [orderMenuItemTable.orderId],
